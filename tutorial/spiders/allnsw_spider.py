@@ -10,10 +10,10 @@ from urlparse import urljoin
 class AllNswSpider(CrawlSpider):
     name = "allnsw"
 
-    allowed = ".gov.au"
+    #allowed = ".gov.au"
 
 
-    def __init__(self, name=None, start = '', filename='', **kw):
+    def __init__(self, name=None,  domain='',start = '', filename='', **kw):
         self.rules = [
             #Rule(LinkExtractor(allow=(domain)),callback='parse_item', follow=True)
             Rule(LinkExtractor(),callback='parse_item', follow=True)
@@ -21,12 +21,8 @@ class AllNswSpider(CrawlSpider):
             #Rule(LinkExtractor(),callback='parse_item')
         ]
 
-        if (start != ''):
-          self.start_urls = [start]
-        else:
-            f = open("toscan.txt")
-            self.start_urls = [url.strip() for url in f.readlines()]
-            f.close()
+        self.start_urls = [start]
+        self.allowed_domains = [domain]
 
         super(AllNswSpider, self).__init__(name, **kw)
 
